@@ -38,6 +38,16 @@ getStyle = () => {
     }
   ]
 
+  // 지울 때 사용하는 함수가 filter
+  // 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환함
+  // 누른 id랑 같은건 지워버리고, 남은건 남김.
+  handleClick = (id) => {
+    let newTodoData = this.todoData.filter((data) => 
+      data.id!== id)
+    // 다르면 통과 (안눌렀다는거.)
+    console.log("newTodoData", newTodoData)
+  }
+  
   render() {
     return(
       // 리턴 안에 유아이 작성, class는 className 으로 작성.
@@ -47,14 +57,17 @@ getStyle = () => {
             <h1> 할 일 목록 </h1>
           </div>
 
+          {/* 클래스형 컴포넌트이기에 this를 사용함. */}
+          {/* map을 사용하여 새로운 JSX 요소를 반환한다.*/}
+
           {this.todoData.map((data) => (
             <div style={this.getStyle()} key={data.id}>
               <input type="checkbox" defaultChecked={false} />
                 {data.title}
-              <button style={this.btnStyle}>X</button>
+              <button style={this.btnStyle} 
+              onClick={()=>this.handleClick(data.id)}>X</button>
             </div>
           ))}
-
         </div>
       </div>
     )
