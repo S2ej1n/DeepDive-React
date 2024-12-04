@@ -24,6 +24,20 @@ getStyle = () => {
   }
 }
 
+  // 할일 목록 데이터 만들기
+  todoData = [
+    { 
+      id: 1, 
+      title: "공부하기", 
+      completed: false 
+    },
+    {
+      id: 2, 
+      title: "청소하기", 
+      completed: false
+    }
+  ]
+
   render() {
     return(
       // 리턴 안에 유아이 작성, class는 className 으로 작성.
@@ -32,11 +46,15 @@ getStyle = () => {
           <div className="title">
             <h1> 할 일 목록 </h1>
           </div>
-          <div style={this.getStyle()}>
-            <input type="checkbox" defaultChecked={false} />
-            공부하기
-            <button style={this.btnStyle}>X</button>
-          </div>
+
+          {this.todoData.map((data) => (
+            <div style={this.getStyle()} key={data.id}>
+              <input type="checkbox" defaultChecked={false} />
+                {data.title}
+              <button style={this.btnStyle}>X</button>
+            </div>
+          ))}
+
         </div>
       </div>
     )
