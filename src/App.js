@@ -25,27 +25,29 @@ getStyle = () => {
 }
 
   // 할일 목록 데이터 만들기
-  todoData = [
-    { 
-      id: 1, 
-      title: "공부하기", 
-      completed: false 
-    },
-    {
-      id: 2, 
-      title: "청소하기", 
-      completed: false
-    }
-  ]
+  state = {
+    todoData : [
+      { 
+        id: 1, 
+        title: "공부하기", 
+        completed: false 
+      },
+      {
+        id: 2, 
+        title: "청소하기", 
+        completed: false
+      }
+    ]
+  }
 
   // 지울 때 사용하는 함수가 filter
   // 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환함
   // 누른 id랑 같은건 지워버리고, 남은건 남김.
   handleClick = (id) => {
-    let newTodoData = this.todoData.filter((data) => 
+    let newTodoData = this.state.todoData.filter((data) => 
       data.id!== id)
     // 다르면 통과 (안눌렀다는거.)
-    console.log("newTodoData", newTodoData)
+    this.setState({todoData: newTodoData});
   }
   
   render() {
@@ -60,7 +62,7 @@ getStyle = () => {
           {/* 클래스형 컴포넌트이기에 this를 사용함. */}
           {/* map을 사용하여 새로운 JSX 요소를 반환한다.*/}
 
-          {this.todoData.map((data) => (
+          {this.state.todoData.map((data) => (
             <div style={this.getStyle()} key={data.id}>
               <input type="checkbox" defaultChecked={false} />
                 {data.title}
