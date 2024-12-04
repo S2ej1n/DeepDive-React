@@ -37,7 +37,8 @@ getStyle = () => {
         title: "청소하기", 
         completed: false
       }
-    ]
+    ],
+    value: ""
   }
 
   // 지울 때 사용하는 함수가 filter
@@ -50,6 +51,24 @@ getStyle = () => {
     this.setState({todoData: newTodoData});
   }
   
+  handleChange = (e) => {
+    this.setState({value: e.target.value});
+  }
+  
+  handleSubmit = (e) => {
+    // form 안에 input을 전송할 때 페이지가 리로드 되는 것을 막아줌
+    e.preventDefault();
+
+    let newTodo = {
+      id: Date.now(),
+      title: this.state.value,
+      completed: false
+    };
+
+    // 원래 있던 할 일에 새로운 할 일 더해주기
+    this.setState({ todoData: [...this.state.todoData, newTodo] });
+  }
+
   render() {
     return(
       // 리턴 안에 유아이 작성, class는 className 으로 작성.
@@ -70,6 +89,23 @@ getStyle = () => {
               onClick={()=>this.handleClick(data.id)}>X</button>
             </div>
           ))}
+
+          <form style={{ display: 'flex'}} onSubmit={this.handleSubmit}>
+            <input 
+              type="text" 
+              name="value" 
+              style={{flex: '10', padding: '5px'}} 
+              placeholder="해야 할 일을 입력하세요."
+              value={this.state.value}
+              onChange={this.handleChange}
+              />
+            <input 
+              type="submit"
+              value="입력"
+              className="btn"
+              style={{flex: '1'}}
+              />
+          </form>
         </div>
       </div>
     )
