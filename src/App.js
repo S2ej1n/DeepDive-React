@@ -39,12 +39,17 @@ export default function App() {
     [todoData]
     );
 
+    const handleRemoveClick = () => {
+      setTodoData([]);
+    }
+
   return (
     // 리턴 안에 유아이 작성, class는 className 으로 작성.
     <div className="flex items-center justify-center w-screen h-screen bg-blue-100">
       <div className="w-full p-6 m-4 bg-white rounded shadow lg:w-3/4 lg:max-w-lg">
         <div className="flex justify-between mb-3">
           <h1> 할 일 목록 </h1>
+          <button onClick={handleRemoveClick}> Delete All </button>
         </div>
         <Lists handleClick={handleClick} todoData={todoData} setTodoData={setTodoData}/>
         <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
