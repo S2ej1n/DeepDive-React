@@ -1,6 +1,11 @@
 import React from 'react'
 
-const List = ({id, title, completed, todoData, setTodoData, provided, snapshot}) => {
+const List = React.memo(({
+    id, title, completed, todoData, 
+    setTodoData, provided, snapshot
+}) => {
+    console.log('List render');
+
     const handleCompleteChange = (id) => {
         let newTodoData = todoData.map(data => {
             if (data.id === id) {
@@ -41,6 +46,6 @@ const List = ({id, title, completed, todoData, setTodoData, provided, snapshot})
             </div>
         </div>
     )
-}
+});
 
 export default List

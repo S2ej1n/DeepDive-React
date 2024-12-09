@@ -4,6 +4,8 @@ import Lists from "./components/Lists";
 import Form from "./components/Form";
 
 export default function App() {
+  // 렌더링 되는지 확인용
+  console.log("App render");
 
   const [todoData, setTodoData] = useState([]);
   const [value, setValue] = useState("");
