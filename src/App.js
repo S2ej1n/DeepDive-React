@@ -3,11 +3,13 @@ import "./App.css";
 import Lists from "./components/Lists";
 import Form from "./components/Form";
 
+const initialTodoData = localStorage.getItem("todoData") ? JSON.parse(localStorage.getItem("todoData")) : [];
+
 export default function App() {
   // 렌더링 되는지 확인용
   console.log("App render");
 
-  const [todoData, setTodoData] = useState([]);
+  const [todoData, setTodoData] = useState(initialTodoData);
   const [value, setValue] = useState("");
 
   const handleSubmit = (e) => {
@@ -23,6 +25,7 @@ export default function App() {
     // 원래 있던 할 일에 새로운 할 일 더해주기
     // Setter에서 이전 State를 가지고 오기 위해서는 인수에 함수를 이용해서 할 수 있따.
     setTodoData((prev) => [...prev, newTodo]);
+    localStorage.setItem("todoData", JSON.stringify([...todoData, newTodo]));
     setValue("");
   }
 
@@ -35,12 +38,14 @@ export default function App() {
           data.id !== id)
       // 다르면 통과 (안눌렀다는거.)
       setTodoData(newTodoData)
+      localStorage.setItem("todoData", JSON.stringify(newTodoData));
     },
     [todoData]
     );
 
     const handleRemoveClick = () => {
       setTodoData([]);
+      localStorage.setItem("todoData", JSON.stringify([]));
     }
 
   return (
