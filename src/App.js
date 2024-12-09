@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import "./App.css";
 import Lists from "./components/Lists";
 import Form from "./components/Form";
@@ -26,6 +26,19 @@ export default function App() {
     setValue("");
   }
 
+      // 지울 때 사용하는 함수가 filter
+    // 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환함
+    // 누른 id랑 같은건 지워버리고, 남은건 남김.
+    const handleClick = useCallback(
+      (id) => {
+      let newTodoData = todoData.filter((data) =>
+          data.id !== id)
+      // 다르면 통과 (안눌렀다는거.)
+      setTodoData(newTodoData)
+    },
+    [todoData]
+    );
+
   return (
     // 리턴 안에 유아이 작성, class는 className 으로 작성.
     <div className="flex items-center justify-center w-screen h-screen bg-blue-100">
@@ -33,7 +46,7 @@ export default function App() {
         <div className="flex justify-between mb-3">
           <h1> 할 일 목록 </h1>
         </div>
-        <Lists todoData={todoData} setTodoData={setTodoData}/>
+        <Lists handleClick={handleClick} todoData={todoData} setTodoData={setTodoData}/>
         <Form handleSubmit={handleSubmit} value={value} setValue={setValue}/>
       </div>
     </div>
